@@ -61,7 +61,7 @@ else:
     df_test = df_test.apply(pd.to_numeric, errors="coerce")
 
     # --- IMPUTE missing values using training data statistics ---
-    train_means = X_train.mean()
+    train_means = X.mean()
     df_test = df_test.fillna(train_means)
 
     # Ensure correct column order
