@@ -69,7 +69,13 @@ if up is None:
 else:
     df_test = pd.read_csv(up)
     # Normalize column names if needed
-    df_test = df_test.rename(columns=COLUMN_ALIASES)
+    # df_test = df_test.rename(columns=COLUMN_ALIASES)
+    df_test.columns = (
+        df_test.columns
+        .str.strip()
+        .str.lower()
+        .str.replace(" ", "_")
+    )
     missing = set(feature_names) - set(df_test.columns)
     if missing:
         st.error(f"CSV missing required columns: {sorted(missing)}")
