@@ -106,24 +106,56 @@ COLUMN_ALIASES = {
 if up is None:
     X_train, X_test, y_train, y_test = split_data(X, y, test_size=test_size, random_state=42)
 else:
-    df_test = pd.read_csv(up)
-    # Normalize column names if needed
-    df_test.columns = (
-        df_test.columns
-        .str.strip()
-        .str.lower()
-        .str.replace(" ", "_")
-    )
+    # Read first row to detect header
+    preview = pd.read_csv(up, nrows=1, header=None)
+
+    has_header = not np.all(pd.to_numeric(preview.iloc[0], errors="coerce").notna())
+
+    if has_header:
+        # Case 1: CSV WITH header
+        df_test = pd.read_csv(up)
+        # Normalize column names if needed
+        df_test.columns = (
+            df_test.columns
+            .str.strip()
+            .str.lower()
+            .str.replace(" ", "_")
+        )
+
+        feature_names_norm = [
+            f.lower().replace(" ", "_") for f in feature_names
+        ]
+
+    # df_test = df_test.rename(columns=COLUMN_ALIASES)
     
-    df_test = df_test.rename(columns=COLUMN_ALIASES)
-    
-    missing = set(feature_names) - set(df_test.columns)
-    
-    if missing:
-        st.error(f"CSV missing required columns: {sorted(missing)}")
-        st.stop()
+        missing = set(feature_names) - set(df_test.columns)
+        if missing:
+            st.error(
+                "Uploaded CSV does not match expected feature schema.\n\n"
+                f"Missing columns:\n{sorted(missing)}"
+            )
+            st.stop()
+            
+        X_test = df_test[feature_names_norm]
+
+    else:
+        # Case 2: CSV WITHOUT header
+        df_test = pd.read_csv(up, header=None)
+
+        if df_test.shape[1] != len(feature_names):
+            st.error(
+                f"Uploaded CSV must have exactly {len(feature_names)} columns, "
+                f"but got {df_test.shape[1]}"
+            )
+            st.stop()
+
+        df_test.columns = feature_names
+        X_test = df_test
+
+        
     X_train, y_train = X, y
-    X_test, y_test = df_test[feature_names], None
+    # X_test, y_test = df_test[feature_names], None
+    y_test = None
 
 # ---------- Model selection ----------
 st.sidebar.header("3) Choose Model & Hyperparameters")
