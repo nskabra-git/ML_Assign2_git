@@ -31,6 +31,11 @@ up = st.sidebar.file_uploader("Upload CSV with the same 30 feature columns (no t
 st.sidebar.header("2) Train/Test Split (if no CSV)")
 test_size = st.sidebar.slider("Test size", 0.1, 0.4, 0.2, 0.05)
 
+st.sidebar.caption(
+    "Uploaded test CSV must follow the same feature order as the dataset. "
+    "Extra columns are ignored."
+)
+
 if up is None:
     X_train, X_test, y_train, y_test = split_data(X, y, test_size=test_size, random_state=42)
 else:
