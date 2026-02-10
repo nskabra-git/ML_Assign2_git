@@ -1,11 +1,13 @@
 """
 # Makes 'model' a package; no code needed here.
 
+###############################
 # What __init__.py is for
 ###############################
 # In Python, any folder becomes a Python package only if it contains a file named __init__.py.
 # This is part of Python’s import system.
 
+################################
 # Why do we need a package?
 ################################
 # Because Streamlit app uses imports like: 
@@ -18,12 +20,14 @@
 # ModuleNotFoundError: No module named 'model'
 # or Streamlit deployment failures because the structure isn’t treated as a package.
 
+########################################
 # What goes inside __init__.py?
 ########################################
 # For your assignment, nothing is required inside it.
 # An empty file is enough.
 # That's why we write: # Makes 'model' a package; no code needed here.
 
+############################################
 # Why Streamlit especially needs this
 ############################################
 # When Streamlit runs on Community Cloud:
@@ -36,6 +40,7 @@
 # # from model.evaluate import compute_metrics
 # # from model.naive_bayes import build_model
 
+###############
 # Summary
 ###############
 #############################################################################################################
