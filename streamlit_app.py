@@ -28,10 +28,48 @@ up = st.sidebar.file_uploader("Upload CSV with the same 30 feature columns (no t
 st.sidebar.header("2) Train/Test Split (if no CSV)")
 test_size = st.sidebar.slider("Test size", 0.1, 0.4, 0.2, 0.05)
 
+# Accept common alternative column naming conventions
+COLUMN_ALIASES = {
+    "radius_mean": "mean radius",
+    "texture_mean": "mean texture",
+    "perimeter_mean": "mean perimeter",
+    "area_mean": "mean area",
+    "smoothness_mean": "mean smoothness",
+    "compactness_mean": "mean compactness",
+    "concavity_mean": "mean concavity",
+    "concave_points_mean": "mean concave points",
+    "symmetry_mean": "mean symmetry",
+    "fractal_dimension_mean": "mean fractal dimension",
+
+    "radius_se": "radius error",
+    "texture_se": "texture error",
+    "perimeter_se": "perimeter error",
+    "area_se": "area error",
+    "smoothness_se": "smoothness error",
+    "compactness_se": "compactness error",
+    "concavity_se": "concavity error",
+    "concave_points_se": "concave points error",
+    "symmetry_se": "symmetry error",
+    "fractal_dimension_se": "fractal dimension error",
+
+    "radius_worst": "worst radius",
+    "texture_worst": "worst texture",
+    "perimeter_worst": "worst perimeter",
+    "area_worst": "worst area",
+    "smoothness_worst": "worst smoothness",
+    "compactness_worst": "worst compactness",
+    "concavity_worst": "worst concavity",
+    "concave_points_worst": "worst concave points",
+    "symmetry_worst": "worst symmetry",
+    "fractal_dimension_worst": "worst fractal dimension",
+}
+
 if up is None:
     X_train, X_test, y_train, y_test = split_data(X, y, test_size=test_size, random_state=42)
 else:
     df_test = pd.read_csv(up)
+    # Normalize column names if needed
+    df_test = df_test.rename(columns=COLUMN_ALIASES)
     missing = set(feature_names) - set(df_test.columns)
     if missing:
         st.error(f"CSV missing required columns: {sorted(missing)}")
