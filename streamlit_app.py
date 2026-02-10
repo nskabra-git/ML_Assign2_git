@@ -57,11 +57,19 @@ else:
     # Assign correct feature names
     df_test.columns = feature_names
 
-    # FORCE numeric conversion (critical)
+    # Convert everything to numeric
     df_test = df_test.apply(pd.to_numeric, errors="coerce")
 
-    # Drop rows with invalid data
-    df_test = df_test.dropna()
+    # --- IMPUTE missing values using training data statistics ---
+    train_means = X_train.mean()
+    df_test = df_test.fillna(train_means)
+
+    # Ensure correct column order
+    df_test = df_test[feature_names]
+
+    # Final safety: ensure float dtype
+    X_test = df_test.astype(float)
+
 
     X_test = df_test
     X_train, y_train = X, y
