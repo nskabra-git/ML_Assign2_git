@@ -50,7 +50,7 @@ else:
     df_test = df_test.iloc[:, :len(feature_names_norm)]
 
     # Assign correct feature names
-    df_test.columns = feature_names_norm
+    df_test.columns = feature_names
 
     X_test = df_test
     X_train, y_train = X, y
