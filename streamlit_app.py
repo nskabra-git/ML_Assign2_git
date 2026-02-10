@@ -109,21 +109,22 @@ if False:
 if up is None:
     X_train, X_test, y_train, y_test = split_data(X, y, test_size=test_size, random_state=42)
 else:
-    # Read first row to detect header
+    # --- Detect header safely ---
+    up.seek(0)
     preview = pd.read_csv(up, nrows=1, header=None)
 
-    has_header = not np.all(pd.to_numeric(preview.iloc[0], errors="coerce").notna())
+    has_header = not np.all(
+        pd.to_numeric(preview.iloc[0], errors="coerce").notna()
+    )
+
+    # --- Read full file ---
+    up.seek(0)
 
     if has_header:
-        # Case 1: CSV WITH header
-        up.seek(0)
+        # CSV WITH header
         df_test = pd.read_csv(up)
-        feature_names_norm = [
-            f.strip().lower().replace(" ", "_")
-            for f in feature_names
-        ]
 
-        # Normalize column names if needed
+        # Normalize uploaded column names
         df_test.columns = (
             df_test.columns
             .str.strip()
@@ -131,44 +132,32 @@ else:
             .str.replace(" ", "_")
         )
 
-        feature_names_norm = [
-            f.lower().replace(" ", "_") for f in feature_names
-        ]
-
-    # df_test = df_test.rename(columns=COLUMN_ALIASES)
-    
-        missing = set(feature_names) - set(df_test.columns)
+        missing = set(feature_names_norm) - set(df_test.columns)
         if missing:
             st.error(
                 "Uploaded CSV does not match expected feature schema.\n\n"
                 f"Missing columns:\n{sorted(missing)}"
             )
             st.stop()
-            
+
+        # Reorder columns to match training data
         X_test = df_test[feature_names_norm]
 
     else:
-        # Case 2: CSV WITHOUT header
+        # CSV WITHOUT header
         df_test = pd.read_csv(up, header=None)
 
-        feature_names_norm = [
-            f.strip().lower().replace(" ", "_")
-            for f in feature_names
-        ]
-
-        if df_test.shape[1] != len(feature_names):
+        if df_test.shape[1] != len(feature_names_norm):
             st.error(
-                f"Uploaded CSV must have exactly {len(feature_names)} columns, "
+                f"Uploaded CSV must have exactly {len(feature_names_norm)} columns, "
                 f"but got {df_test.shape[1]}"
             )
             st.stop()
 
-        df_test.columns = feature_names
+        df_test.columns = feature_names_norm
         X_test = df_test
 
-        
     X_train, y_train = X, y
-    # X_test, y_test = df_test[feature_names], None
     y_test = None
 
 # ---------- Model selection ----------
