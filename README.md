@@ -15,6 +15,10 @@ Metrics displayed in the app: Accuracy, AUC, Precision, Recall, F1, **MCC**, Cla
 
 > Paste the comparison table you export from the app or notebook here.
 
+## Model Info
+The model is trained using scikit-learn’s built-in Breast Cancer Wisconsin (Diagnostic) dataset. The Streamlit CSV upload is intended only for test
+samples containing feature columns, due to Streamlit free-tier limitations.
+
 ## Run locally
 ```bash
 python -m venv .venv && source .venv/bin/activate   # Windows: .venv\Scripts\activate
