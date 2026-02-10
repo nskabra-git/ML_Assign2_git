@@ -67,9 +67,9 @@ else:
     X_train, y_train = X, y
     y_test = None
 
-if len(df_test) == 0:
-    st.error("Uploaded CSV has no valid numeric rows after cleaning.")
-    st.stop()
+# if len(df_test) == 0:
+#     st.error("Uploaded CSV has no valid numeric rows after cleaning.")
+#     st.stop()
 
 # ---------- Model selection ----------
 st.sidebar.header("3) Choose Model & Hyperparameters")
