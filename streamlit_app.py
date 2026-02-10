@@ -38,23 +38,23 @@ else:
     up.seek(0)
     df_test = pd.read_csv(up, header=None)
 
-# Allow extra columns; require at least the required number of features
-if df_test.shape[1] < len(feature_names_norm):
-    st.error(
-        f"Uploaded CSV must have at least {len(feature_names_norm)} columns, "
-        f"but got {df_test.shape[1]}"
-    )
-    st.stop()
+    # Allow extra columns; require at least the required number of features
+    if df_test.shape[1] < len(feature_names_norm):
+        st.error(
+            f"Uploaded CSV must have at least {len(feature_names_norm)} columns, "
+            f"but got {df_test.shape[1]}"
+        )
+        st.stop()
 
-# Use only the first required feature columns
-df_test = df_test.iloc[:, :len(feature_names_norm)]
+    # Use only the first required feature columns
+    df_test = df_test.iloc[:, :len(feature_names_norm)]
 
-# Assign correct feature names
-df_test.columns = feature_names_norm
+    # Assign correct feature names
+    df_test.columns = feature_names_norm
 
-X_test = df_test
-X_train, y_train = X, y
-y_test = None
+    X_test = df_test
+    X_train, y_train = X, y
+    y_test = None
 
 
 # ---------- Model selection ----------
