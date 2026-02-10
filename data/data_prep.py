@@ -9,6 +9,9 @@
 
 import pandas as pd
 
+dataset_name = "breast_cancer"
+dataset_source = "https://archive.ics.uci.edu/dataset/17/breast+cancer+wisconsin+diagnostic"
+
 columns = [
     "id", "diagnosis",
     "radius_mean", "texture_mean", "perimeter_mean", "area_mean", "smoothness_mean",
@@ -21,3 +24,19 @@ columns = [
 
 df = pd.read_csv("breast+cancer+wisconsin+diagnostic/wdbc.data", header=None, names=columns)
 df.to_csv("wdbc.csv", index=False)
+
+# Print All Metadata Fields
+print("\n" + "="*70)
+print("DATASET INFORMATION")
+print("="*70)
+print(f"Dataset: {dataset_name}")
+print(f"Source: {dataset_source}")
+#print(f"Total Samples: {n_samples}")
+#print(f"Number of Features: {n_features}")
+print("Dataset Shape:", df.shape)
+print("\nColumn Names:")
+print(df.columns)
+print("\nData Types:")
+print(df.dtypes)
+# Display first few rows
+df.head()
