@@ -113,6 +113,7 @@ else:
 
     if has_header:
         # Case 1: CSV WITH header
+        up.seek(0)
         df_test = pd.read_csv(up)
         # Normalize column names if needed
         df_test.columns = (
