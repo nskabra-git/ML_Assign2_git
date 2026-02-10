@@ -121,26 +121,26 @@ def get_builder(nm):
 # if run_btn:
 if run_btn or (auto_run and up is None):
     if y_test is None:
-    st.info(
-        "Uploaded CSV has no ground-truth labels. "
-        "Showing model predictions only."
-    )
+        st.info(
+            "Uploaded CSV has no ground-truth labels. "
+           "Showing model predictions only."
+        )
 
-    model = get_builder(name)(params)
-    model.fit(X_train, y_train)
+        model = get_builder(name)(params)
+        model.fit(X_train, y_train)
 
-    preds = model.predict(X_test)
+        preds = model.predict(X_test)
 
-    # Map numeric predictions to class names
-    pred_labels = [target_names[p] for p in preds]
+        # Map numeric predictions to class names
+        pred_labels = [target_names[p] for p in preds]
 
-    results = X_test.copy()
-    results["Prediction"] = pred_labels
+        results = X_test.copy()
+        results["Prediction"] = pred_labels
 
-    st.subheader("Predictions on Uploaded Test Data")
-    st.dataframe(results)
+        st.subheader("Predictions on Uploaded Test Data")
+        st.dataframe(results)
 
-    st.stop()
+        st.stop()
 
     model = get_builder(name)(params)
     model.fit(X_train, y_train)
