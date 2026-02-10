@@ -81,7 +81,13 @@ elif name == "XGBoost":
     params["subsample"] = st.sidebar.slider("subsample", 0.5, 1.0, float(d["subsample"]), 0.05)
     params["colsample_bytree"] = st.sidebar.slider("colsample_bytree", 0.5, 1.0, float(d["colsample_bytree"]), 0.05)
 
-run_btn = st.sidebar.button("Run")
+# run_btn = st.sidebar.button("Run")
+run_btn = st.sidebar.button("Run", type="primary")
+auto_run = st.sidebar.checkbox(
+    "Auto-run with built-in dataset", 
+    value=True,
+    help="Runs evaluation automatically using the default dataset"
+)
 
 def get_builder(nm):
     return {
@@ -94,9 +100,14 @@ def get_builder(nm):
         "XGBoost": build_xgb,
     }[nm]
 
-if run_btn:
+# if run_btn:
+if run_btn or (auto_run and up is None):
     if y_test is None:
-        st.warning("Uploaded CSV has no labels; metrics require ground truth. Use built-in split instead.")
+        # st.warning("Uploaded CSV has no labels; metrics require ground truth. Use built-in split instead.")
+        st.warning(
+            "Uploaded CSV has no labels; metrics require ground truth. "
+            "Use built-in split instead."
+        )
         st.stop()
 
     model = get_builder(name)(params)
