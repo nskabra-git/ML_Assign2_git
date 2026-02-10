@@ -103,6 +103,9 @@ COLUMN_ALIASES = {
     "fractal_dimension_worst": "worst_fractal_dimension",
 }
 
+if False:
+    st.write(COLUMN_ALIASES)
+
 if up is None:
     X_train, X_test, y_train, y_test = split_data(X, y, test_size=test_size, random_state=42)
 else:
@@ -115,6 +118,11 @@ else:
         # Case 1: CSV WITH header
         up.seek(0)
         df_test = pd.read_csv(up)
+        feature_names_norm = [
+            f.strip().lower().replace(" ", "_")
+            for f in feature_names
+        ]
+
         # Normalize column names if needed
         df_test.columns = (
             df_test.columns
@@ -142,6 +150,11 @@ else:
     else:
         # Case 2: CSV WITHOUT header
         df_test = pd.read_csv(up, header=None)
+
+        feature_names_norm = [
+            f.strip().lower().replace(" ", "_")
+            for f in feature_names
+        ]
 
         if df_test.shape[1] != len(feature_names):
             st.error(
