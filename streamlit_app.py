@@ -34,54 +34,21 @@ test_size = st.sidebar.slider("Test size", 0.1, 0.4, 0.2, 0.05)
 if up is None:
     X_train, X_test, y_train, y_test = split_data(X, y, test_size=test_size, random_state=42)
 else:
-    # --- Detect header safely ---
+    # Always treat uploaded CSV as HEADERLESS
     up.seek(0)
-    preview = pd.read_csv(up, nrows=1, header=None)
+    df_test = pd.read_csv(up, header=None)
 
-    has_header = not np.all(
-        pd.to_numeric(preview.iloc[0], errors="coerce").notna()
-    )
-
-    # --- Read full file ---
-    up.seek(0)
-
-    if has_header:
-        # CSV WITH header
-        df_test = pd.read_csv(up)
-
-        # Normalize uploaded column names
-        df_test.columns = (
-            df_test.columns
-            .str.strip()
-            .str.lower()
-            .str.replace(" ", "_")
+    if df_test.shape[1] != len(feature_names_norm):
+        st.error(
+            f"Uploaded CSV must have exactly {len(feature_names_norm)} columns, "
+            f"but got {df_test.shape[1]}"
         )
+        st.stop()
 
-        missing = set(feature_names_norm) - set(df_test.columns)
-        if missing:
-            st.error(
-                "Uploaded CSV does not match expected feature schema.\n\n"
-                f"Missing columns:\n{sorted(missing)}"
-            )
-            st.stop()
+    # Assign correct feature names
+    df_test.columns = feature_names_norm
 
-        # Reorder columns to match training data
-        X_test = df_test[feature_names_norm]
-
-    else:
-        # CSV WITHOUT header
-        df_test = pd.read_csv(up, header=None)
-
-        if df_test.shape[1] != len(feature_names_norm):
-            st.error(
-                f"Uploaded CSV must have exactly {len(feature_names_norm)} columns, "
-                f"but got {df_test.shape[1]}"
-            )
-            st.stop()
-
-        df_test.columns = feature_names_norm
-        X_test = df_test
-
+    X_test = df_test
     X_train, y_train = X, y
     y_test = None
 
