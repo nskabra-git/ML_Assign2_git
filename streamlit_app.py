@@ -57,10 +57,19 @@ else:
     # Assign correct feature names
     df_test.columns = feature_names
 
+    # FORCE numeric conversion (critical)
+    df_test = df_test.apply(pd.to_numeric, errors="coerce")
+
+    # Drop rows with invalid data
+    df_test = df_test.dropna()
+
     X_test = df_test
     X_train, y_train = X, y
     y_test = None
 
+if len(df_test) == 0:
+    st.error("Uploaded CSV has no valid numeric rows after cleaning.")
+    st.stop()
 
 # ---------- Model selection ----------
 st.sidebar.header("3) Choose Model & Hyperparameters")
