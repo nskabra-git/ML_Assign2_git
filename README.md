@@ -25,6 +25,19 @@ Metrics displayed in the app: Accuracy, AUC, Precision, Recall, F1, **MCC**, Cla
 | Random Forest             | 0.9737   | 0.9928 | 0.9737    | 0.9737 | 0.9737 | 0.9473 |
 | XGBoost                   | 0.9737   | 0.9971 | 0.9737    | 0.9737 | 0.9737 | 0.9473 |
 
+
+## Observations on Model Performance
+
+|        ML Model Name      |              Observation on Model Performance            |   
+|---------------------------|---------------------------------------------------------:|
+| Logistic Regression       |                                                          |
+| Decision Tree             |                                                          |
+| KNN                       |                                                          |
+| Naive Bayes (Gaussian)    |                                                          |
+| Naive Bayes (Multinomial) |                                                          |
+| Random Forest             |                                                          |
+| XGBoost                   |                                                          |
+
 ## Model Info
 The model is trained using scikit-learn’s built-in Breast Cancer Wisconsin (Diagnostic) dataset. The Streamlit CSV upload is intended only for test
 samples containing feature columns, due to Streamlit free-tier limitations.
