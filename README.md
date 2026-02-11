@@ -6,7 +6,8 @@
 Build and deploy multiple ML classification models using a single dataset and demonstrate them via a Streamlit web application. Deploy on Streamlit Community Cloud and share the live URL.
 
 ## Dataset Description
-**Breast Cancer Wisconsin (Diagnostic)** dataset (569 samples, 30 numeric features, binary target). Loaded from `sklearn.datasets.load_breast_cancer`. You will not need to bundle a CSV.
+**Breast Cancer Wisconsin (Diagnostic)** dataset (569 samples, 30 numeric features, binary target).
+Loaded from `sklearn.datasets.load_breast_cancer`.
 Source: Loaded from `sklearn.datasets.load_breast_cancer`
 
 ## Models Used and Metrics
