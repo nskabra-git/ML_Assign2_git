@@ -2,13 +2,14 @@
 
 # ML Assignment 2 – Classification Models & Streamlit
 
-## a. Problem Statement
+## Problem Statement
 Build and deploy multiple ML classification models using a single dataset and demonstrate them via a Streamlit web application. Deploy on Streamlit Community Cloud and share the live URL.
 
-## b. Dataset Description
+## Dataset Description
 **Breast Cancer Wisconsin (Diagnostic)** dataset (569 samples, 30 numeric features, binary target). Loaded from `sklearn.datasets.load_breast_cancer`. You will not need to bundle a CSV.
+Source: Loaded from `sklearn.datasets.load_breast_cancer`
 
-## c. Models Used and Metrics
+## Models Used and Metrics
 Models: Logistic Regression, Decision Tree, KNN, Naive Bayes (Gaussian / Multinomial), Random Forest, XGBoost.
 
 Metrics displayed in the app: Accuracy, AUC, Precision, Recall, F1, **MCC**, Classification Report, Confusion Matrix, ROC and PR curves (when probabilities available).
@@ -24,3 +25,13 @@ samples containing feature columns, due to Streamlit free-tier limitations.
 python -m venv .venv && source .venv/bin/activate   # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
 streamlit run streamlit_app.py
+
+## Author
+Nitin Shriram Kabra
+
+## License
+This project is done as part of partial fullfillment of accademic accomplishment.
+
+## Acknowledgements
+UCI Machine Learning Repository for the Breast Cancer dataset.
+
