@@ -15,7 +15,7 @@ Models: Logistic Regression, Decision Tree, KNN, Naive Bayes (Gaussian / Multino
 
 Metrics displayed in the app: Accuracy, AUC, Precision, Recall, F1, **MCC**, Classification Report, Confusion Matrix, ROC and PR curves (when probabilities available).
 
-> '| ML Model Name | Accuracy | AUC | Precision | Recall | F1 | MCC |\n|---|---:|---:|---:|---:|---:|---:|\n| Logistic Regression | 0.9649 | 0.9938 | 0.9649 | 0.9649 | 0.9649 | 0.9297 |\n| Decision Tree | 0.9123 | 0.9217 | 0.9217 | 0.9123 | 0.9123 | 0.8258 |\n| KNN | 0.9561 | 0.9842 | 0.9561 | 0.9561 | 0.9561 | 0.9105 |\n| Naive Bayes (Gaussian) | 0.9386 | 0.9764 | 0.9386 | 0.9386 | 0.9386 | 0.8777 |\n| Naive Bayes (Multinomial) | 0.8947 | 0.9351 | 0.8947 | 0.8947 | 0.8947 | 0.7897 |\n| Random Forest | 0.9737 | 0.9928 | 0.9737 | 0.9737 | 0.9737 | 0.9473 |\n| XGBoost | 0.9737 | 0.9971 | 0.9737 | 0.9737 | 0.9737 | 0.9473 |'
+> | ML Model Name | Accuracy | AUC | Precision | Recall | F1 | MCC |\n|---|---:|---:|---:|---:|---:|---:|\n| Logistic Regression | 0.9649 | 0.9938 | 0.9649 | 0.9649 | 0.9649 | 0.9297 |\n| Decision Tree | 0.9123 | 0.9217 | 0.9217 | 0.9123 | 0.9123 | 0.8258 |\n| KNN | 0.9561 | 0.9842 | 0.9561 | 0.9561 | 0.9561 | 0.9105 |\n| Naive Bayes (Gaussian) | 0.9386 | 0.9764 | 0.9386 | 0.9386 | 0.9386 | 0.8777 |\n| Naive Bayes (Multinomial) | 0.8947 | 0.9351 | 0.8947 | 0.8947 | 0.8947 | 0.7897 |\n| Random Forest | 0.9737 | 0.9928 | 0.9737 | 0.9737 | 0.9737 | 0.9473 |\n| XGBoost | 0.9737 | 0.9971 | 0.9737 | 0.9737 | 0.9737 | 0.9473 |
 
 ## Model Info
 The model is trained using scikit-learn’s built-in Breast Cancer Wisconsin (Diagnostic) dataset. The Streamlit CSV upload is intended only for test
